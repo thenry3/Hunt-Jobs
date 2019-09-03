@@ -65,7 +65,9 @@ def indeed(locations, keywords, jobtype):
 
 
 def glassdoor(locations, keywords, jobtype):
+    # return dictionary with jobs
     foundJobs = {}
+    # glassdoor website to query jobs
     JOB_URL = "https://www.glassdoor.com/Job/jobs.htm"
     JobQueryHeaders = {
         "referer": "https://www.glassdoor.com/",
@@ -74,6 +76,7 @@ def glassdoor(locations, keywords, jobtype):
         "Cache-Control": "no-cache",
         "Connection": "keep-alive"
     }
+    # url to queyr location IDs
     LOCATION_URL = "https://www.glassdoor.co.in/findPopularLocationAjax.htm?"
     LocationQueryHeaders = {
         "referer": "https://www.glassdoor.com/",
@@ -89,12 +92,42 @@ def glassdoor(locations, keywords, jobtype):
         }
         locationResponse = requests.post(
             LOCATION_URL, headers=LocationQueryHeaders, data=locationQuery)
+        # iterate through each location response
         for locationData in locationResponse.json():
+            # query HTML page
             jobQuery = {'clickSource': 'searchBtn', "sc.keyword": " " if keywords is None else " ".join(keywords), "locT": locationData["locationType"],
-                        "locID": locationData["locationId"], "jobType": ""}
+                        "locID": locationData["locationId"], "jobType": jobtype}
             jobResponse = requests.post(
                 JOB_URL, headers=JobQueryHeaders, data=jobQuery)
-            soup = BeautifulSoup(jobResponse.text, "html.parser")
-            print(soup.prettify())
 
-    return 0
+            soup = BeautifulSoup(jobResponse.text, "html.parser")
+            for jobposting in soup.find_all("li", class_="jl"):
+                # for each posting, retrieve data
+                company = jobposting.find(
+                    "div", class_="jobHeader").get_text().strip()
+                title = jobposting.find(class_="jobContainer").find(
+                    "a", recursive=False).get_text().strip()
+                city = jobposting.find(
+                    "div", class_="empLoc").get_text().strip()
+                date = jobposting.find(
+                    "span", class_="jobLabel").get_text().strip()
+                try:
+                    salary = jobposting.find(
+                        "span", class_="jobSalaryRange").get_text().strip()
+                except:
+                    salary = None
+
+                halfLink = re.findall(
+                    '/partner.*?jobListingId=\d*', str(jobposting.find(class_="jobContainer")))[0]
+                jobLink = "https://www.glassdoor.com" + halfLink
+
+                posting = {"job": title, "link": jobLink,
+                           "location": city, "posted": date, "meta": salary}
+
+                try:
+                    if posting not in foundJobs[company]:
+                        foundJobs[company].append(posting)
+                except:
+                    foundJobs[company] = [posting]
+
+    return foundJobs
