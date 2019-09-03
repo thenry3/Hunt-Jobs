@@ -25,14 +25,14 @@ if __name__ == "__main__":
     JobType = "internship" if args.internship else "fulltime" if args.fulltime else ""
     keywords = args.keywords if args.keywords is not None else [""]
     glassdoorJobs = scrapes.glassdoor(args.locations, args.keywords, JobType)
-    # indeedJobs = scrapes.indeed(args.locations, args.keywords, JobType)
+    indeedJobs = scrapes.indeed(args.locations, args.keywords, JobType)
 
     index = 0
-    # for company in indeedJobs:
-    #     for post in indeedJobs[company]:
-    #         df.loc[index] = [company, post["job"], post["link"],
-    #                          post["location"], post["posted"], post["meta"]]
-    #         index += 1
+    for company in indeedJobs:
+        for post in indeedJobs[company]:
+            df.loc[index] = [company, post["job"], post["link"],
+                             post["location"], post["posted"], post["meta"]]
+            index += 1
 
     for company in glassdoorJobs:
         for post in glassdoorJobs[company]:
