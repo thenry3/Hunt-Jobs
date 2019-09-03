@@ -24,6 +24,7 @@ def indeed(locations, keywords, jobtype):
             for div in soup.find_all("div", class_="jobsearch-SerpJobCard"):
                 sections = div.select('.jobsearch-SerpJobCard > div')
 
+                # parse data for job title, company, location, and date posting
                 title = div.find("div", class_="title").get_text().strip()
                 company = div.find("span", class_="company").get_text().strip()
                 city = div.find(class_="location").get_text().strip()
