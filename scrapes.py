@@ -65,6 +65,7 @@ def indeed(locations, keywords, jobtype):
 
 
 def glassdoor(locations, keywords, jobtype):
+    idCache = []
     # return dictionary with jobs
     foundJobs = {}
     # glassdoor website to query jobs
@@ -88,15 +89,14 @@ def glassdoor(locations, keywords, jobtype):
     for location in locations:
         locationQuery = {
             "term": location.replace("+", " "),
-            "maxLocationsToReturn": 10
+            "maxLocationsToReturn": 50
         }
         locationResponse = requests.post(
             LOCATION_URL, headers=LocationQueryHeaders, data=locationQuery)
         # iterate through each location response
         for locationData in locationResponse.json():
-            # query HTML page
             jobQuery = {'clickSource': 'searchBtn', "sc.keyword": " " if keywords is None else " ".join(keywords), "locT": locationData["locationType"],
-                        "locID": locationData["locationId"], "jobType": jobtype}
+                        "locId": locationData["locationId"], "jobType": jobtype}
             jobResponse = requests.post(
                 JOB_URL, headers=JobQueryHeaders, data=jobQuery)
 
@@ -107,8 +107,8 @@ def glassdoor(locations, keywords, jobtype):
                     "div", class_="jobHeader").get_text().strip()
                 title = jobposting.find(class_="jobContainer").find(
                     "a", recursive=False).get_text().strip()
-                city = jobposting.find(
-                    "div", class_="empLoc").get_text().strip()
+                city = jobposting.select("div.empLoc > span.loc")[
+                    0].get_text().strip()
                 date = jobposting.find(
                     "span", class_="jobLabel").get_text().strip()
                 try:
@@ -117,17 +117,25 @@ def glassdoor(locations, keywords, jobtype):
                 except:
                     salary = None
 
+                # find link to job
                 halfLink = re.findall(
                     '/partner.*?jobListingId=\d*', str(jobposting.find(class_="jobContainer")))[0]
                 jobLink = "https://www.glassdoor.com" + halfLink
 
+                # find job id number to keep as history
+                idNum = re.findall('\d*$', halfLink)[0]
+
+                # create JSON post
                 posting = {"job": title, "link": jobLink,
                            "location": city, "posted": date, "meta": salary}
 
+                # add posting to found jobs
                 try:
-                    if posting not in foundJobs[company]:
+                    if idNum not in idCache:
                         foundJobs[company].append(posting)
+                        idCache.append(idNum)
                 except:
                     foundJobs[company] = [posting]
+                    idCache.append(idNum)
 
     return foundJobs
