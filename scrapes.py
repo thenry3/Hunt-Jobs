@@ -9,6 +9,7 @@ def divNoClassNoID(tag):
 
 
 def indeed(locations, keywords, jobtype):
+    foundJobs = {}
     # search for each location given
     for location in locations:
         # parse keyword search string
@@ -33,8 +34,9 @@ def indeed(locations, keywords, jobtype):
                     class_="date") is not None else None
 
                 try:
-                    linkglass1 = re.findall('\?jk=.*?&', str(sections[0]))[0]
-                    linkglass = "https://www.indeed.com/viewjob" + linkglass1 + "from=serp&vjs=3"
+                    # retrieve job link and parse HTML
+                    linkindeed1 = re.findall('\?jk=.*?&', str(sections[0]))[0]
+                    linkindeed = "https://www.indeed.com/viewjob" + linkindeed1 + "from=serp&vjs=3"
 
                     glasspage = requests.get(linkglass).text
                     jobsoup = BeautifulSoup(glasspage, "html.parser")
@@ -42,12 +44,20 @@ def indeed(locations, keywords, jobtype):
                     jobdiv = jobsoup.find(
                         class_="jobsearch-DesktopStickyContainer")
 
-                    try:
-                        MetaData = jobdiv.find(
-                            "span", class_="jobsearch-JobMetadataHeader-item").get_text()
-                        print(company, title, MetaData)
-                    except:
-                        print(company, title)
-
+                    MetaData = jobdiv.find(
+                        "span", class_="jobsearch-JobMetadataHeader-item").get_text()
                 except:
-                    print("FUCK", company, title)
+                    # Unable to get link to individual post
+                    MetaData = None
+                    linkindeed = None
+
+                # add posting to dictionary of postings by company
+                try:
+                    if {"job": title, "link": linkindeed, "location": city, "posted": age, "meta": MetaData} not in foundJobs[company]:
+                        foundJobs[company] += {"job": title, "link": linkindeed,
+                                               "location": city, "posted": age, "meta": MetaData}
+                except:
+                    foundJobs[company] = [
+                        {"job": title, "link": linkindeed, "location": city, "posted": age, "meta": MetaData}]
+
+    return foundJobs
