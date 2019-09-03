@@ -20,4 +20,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     JobType = "internship" if args.internship else "fulltime" if args.fulltime else ""
-    scrapes.indeed(args.locations, args.keywords, JobType)
+    indeedJobs = scrapes.indeed(args.locations, args.keywords, JobType)
+    print(len(indeedJobs))

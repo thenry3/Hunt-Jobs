@@ -19,7 +19,7 @@ def indeed(locations, keywords, jobtype):
             URL = "https://www.indeed.com/jobs?" + key + "l=" + \
                 location + "&jt=" + jobtype + "&start=" + str(page_num)
             result = requests.get(URL)
-            print(URL)
+
             # parse HTML document
             soup = BeautifulSoup(result.text, "html.parser")
             # iterate through each posting on page
