@@ -4,13 +4,10 @@ import pandas as pd
 import re
 
 
-def divNoClassNoID(tag):
-    return not tag.has_attr('class') and not tag.has_attr('id') and tag.name == 'div'
-
-
 def indeed(locations, keywords, jobtype):
+    def divNoClassNoID(tag):
+        return not tag.has_attr('class') and not tag.has_attr('id') and tag.name == 'div'
     foundJobs = {}
-    count = 0
     # search for each location given
     for location in locations:
         # parse keyword search string
