@@ -10,6 +10,7 @@ def divNoClassNoID(tag):
 
 def indeed(locations, keywords, jobtype):
     foundJobs = {}
+    count = 0
     # search for each location given
     for location in locations:
         # parse keyword search string
@@ -26,38 +27,40 @@ def indeed(locations, keywords, jobtype):
             for div in soup.find_all("div", class_="jobsearch-SerpJobCard"):
                 sections = div.select('.jobsearch-SerpJobCard > div')
 
-                title = re.findall('title=".*"', str(sections[0]))[0][7:-1]
-                company = sections[1].find(
-                    "span", class_="company").get_text().strip()
-                city = sections[1].find(class_="location").get_text().strip()
+                title = div.find("div", class_="title").get_text().strip()
+                company = div.find("span", class_="company").get_text().strip()
+                city = div.find(class_="location").get_text().strip()
                 age = div.find(class_="date").get_text().strip() if div.find(
                     class_="date") is not None else None
+                linkindeed = None
+                MetaData = None
 
                 try:
                     # retrieve job link and parse HTML
                     linkindeed1 = re.findall('\?jk=.*?&', str(sections[0]))[0]
                     linkindeed = "https://www.indeed.com/viewjob" + linkindeed1 + "from=serp&vjs=3"
-
-                    glasspage = requests.get(linkglass).text
-                    jobsoup = BeautifulSoup(glasspage, "html.parser")
-
-                    jobdiv = jobsoup.find(
-                        class_="jobsearch-DesktopStickyContainer")
-
-                    MetaData = jobdiv.find(
-                        "span", class_="jobsearch-JobMetadataHeader-item").get_text()
                 except:
-                    # Unable to get link to individual post
-                    MetaData = None
                     linkindeed = None
+                else:
+                    try:
+                        glasspage = requests.get(linkindeed).text
+                        jobsoup = BeautifulSoup(glasspage, "html.parser")
+
+                        jobdiv = jobsoup.find(
+                            class_="jobsearch-DesktopStickyContainer")
+
+                        MetaData = jobdiv.find(
+                            "span", class_="jobsearch-JobMetadataHeader-item").get_text()
+                    except:
+                        MetaData = None
 
                 # add posting to dictionary of postings by company
+                posting = {"job": title, "link": linkindeed,
+                           "location": city, "posted": age, "meta": MetaData}
                 try:
-                    if {"job": title, "link": linkindeed, "location": city, "posted": age, "meta": MetaData} not in foundJobs[company]:
-                        foundJobs[company] += {"job": title, "link": linkindeed,
-                                               "location": city, "posted": age, "meta": MetaData}
+                    if posting not in foundJobs[company]:
+                        foundJobs[company].append(posting)
                 except:
-                    foundJobs[company] = [
-                        {"job": title, "link": linkindeed, "location": city, "posted": age, "meta": MetaData}]
+                    foundJobs[company] = [posting]
 
     return foundJobs
