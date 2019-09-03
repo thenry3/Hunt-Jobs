@@ -62,3 +62,39 @@ def indeed(locations, keywords, jobtype):
                     foundJobs[company] = [posting]
 
     return foundJobs
+
+
+def glassdoor(locations, keywords, jobtype):
+    foundJobs = {}
+    JOB_URL = "https://www.glassdoor.com/Job/jobs.htm"
+    JobQueryHeaders = {
+        "referer": "https://www.glassdoor.com/",
+        "upgrade-insecure-requests": "1",
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/51.0.2704.79 Chrome/51.0.2704.79 Safari/537.36',
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive"
+    }
+    LOCATION_URL = "https://www.glassdoor.co.in/findPopularLocationAjax.htm?"
+    LocationQueryHeaders = {
+        "referer": "https://www.glassdoor.com/",
+        "upgrade-insecure-requests": "1",
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/51.0.2704.79 Chrome/51.0.2704.79 Safari/537.36',
+        "Cache-Control": "no-cache",
+        "Conncection": "keep-alive"
+    }
+    for location in locations:
+        locationQuery = {
+            "term": location.replace("+", " "),
+            "maxLocationsToReturn": 10
+        }
+        locationResponse = requests.post(
+            LOCATION_URL, headers=LocationQueryHeaders, data=locationQuery)
+        for locationData in locationResponse.json():
+            jobQuery = {'clickSource': 'searchBtn', "sc.keyword": " " if keywords is None else " ".join(keywords), "locT": locationData["locationType"],
+                        "locID": locationData["locationId"], "jobType": ""}
+            jobResponse = requests.post(
+                JOB_URL, headers=JobQueryHeaders, data=jobQuery)
+            soup = BeautifulSoup(jobResponse.text, "html.parser")
+            print(soup.prettify())
+
+    return 0
