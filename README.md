@@ -19,6 +19,7 @@ This is a command line tool. This will be run on a mac's Terminal or windows' Co
 ### Usage and Examples
 
 **This command must have a location parameter in order to work.**
+
 Navigate to the directory that containts the script executable in terminal(macOS)/Command Prompt(windows)
 
 The -h or --help flag brings up a help menu
