@@ -14,7 +14,7 @@ As of 9/3/2019, this script is Unix-based -- only macOS may run this.
 2. Click and download the executable named "HuntJobs"
 
 3. In terminal, enter the command
-   > chmod +x _FILE_PATH_\*\*
+   > chmod +x _FILE_PATH_
 
 ### Usage
 
@@ -23,19 +23,27 @@ This command must have a location parameter in order to work.
 **Examples:**
 The -h or --help flag brings up a help menu
 
-> ./HuntJobs.dms -h
+```
+./HuntJobs.dms -h
+```
 
 Simple example
 
-> ./HuntJobs.dms California
+```
+./HuntJobs.dms California
+```
 
 Search in two locations
 
-> ./HuntJobs.dms California Boston
+```
+./HuntJobs.dms California Boston
+```
 
 Search in a location which has a multi-word name
 
-> ./HuntJobs.dms New+York
+```
+./HuntJobs.dms New+York
+```
 
 The -k or --keywords flag allows a search with keywords
 
@@ -56,23 +64,33 @@ Search for only internships or only full-time positions using the -i(or --intern
 
 Print output in table format to console using -v or --verbose
 
-> ./HuntJobs.dms Nevada -v
+```
+./HuntJobs.dms Nevada -v
+```
 
 Parse data into csv file by specifying path name using -c or --csv; be sure to include the .csv file extension
 
-> ./HuntJobs.dms Salt+Lake+City -c foobar.csv
+```
+./HuntJobs.dms Salt+Lake+City -c foobar.csv
+```
 
 Parse data into excel file by specifying path name using -e or --excel; be sure to include the .xlsx file extension
 
-> ./HuntJobs.dms Maine -e ../foobar.xlsx
+```
+./HuntJobs.dms Maine -e ../foobar.xlsx
+```
 
 Parse data into text file by specifying path name using -t or --text
 
-> ./HuntJobs.dms Colorado -t test.txt
+```
+./HuntJobs.dms Colorado -t test.txt
+```
 
 Using everything, we can do search in California, New York, and Dallas for full-time designer positions, having the output be printed on terminal, and parsed into a csv, excel, and text file.
 
-> ./HuntJobs.dms California New+York -f -k designer --verbose -c foobar.csv -e ../foobar.xlsx -t ~/Documents/foobar.txt
+```
+./HuntJobs.dms California New+York -f -k designer --verbose -c foobar.csv -e ../foobar.xlsx -t ~/Documents/foobar.txt
+```
 
 Enjoy!
 
