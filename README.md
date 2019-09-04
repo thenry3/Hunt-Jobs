@@ -99,6 +99,8 @@ Enjoy!
 
 ## IN DEVELOPMENT
 
+- Windows executable
+
 - Email results
 
 - User Graphical Interface/Website
