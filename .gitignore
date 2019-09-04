@@ -1,7 +1,9 @@
-test.txt
+*.txt
 *.pyc
 __pycache__
 .vscode
 *.spec
 dist
 build
+*.csv
+*.xlsx
