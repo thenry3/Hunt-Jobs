@@ -24,7 +24,6 @@ As of 9/3/2019, this script is Unix-based -- only macOS may run this.
 
 This command must have a location parameter in order to work.
 
-**Examples:**
 The -h or --help flag brings up a help menu
 
 ```
