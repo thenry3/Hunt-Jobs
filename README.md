@@ -45,10 +45,11 @@ The -k or --keywords flag allows a search with keywords
 
 Search for only internships or only full-time positions using the -i(or --internship) and -f(--fulltime) flag respectively
 
-> ./HuntJobs.dms Los+Angeles -i
-> ./HuntJobs.dms Boston Texas -f -k financial analyst
+> ./HuntJobs.dms Los+Angeles -i \n
+> ./HuntJobs.dms Boston Texas -f -k financial analyst \n
 > ./HuntJobs.dms Dallas -i
-> **NOTE: DO NOT USE BOTH -i and -f FLAGS AT THE SAME TIME**
+
+**NOTE: DO NOT USE BOTH -i and -f FLAGS AT THE SAME TIME**
 
 Print output in table format to console using -v or --verbose
 
@@ -57,13 +58,17 @@ Print output in table format to console using -v or --verbose
 Parse data into csv file by specifying path name using -c or --csv; be sure to include the .csv file extension
 
 > ./HuntJobs.dms Gerogia -c ~/Downloads/foobar.csv
-> in the current directory
+
+in the current directory
+
 > ./HuntJobs.dms Salt+Lake+City -c foobar.csv
 
 Parse data into excel file by specifying path name using -e or --excel; be sure to include the .xlsx file extension
 
 > ./HuntJobs.dms Maine -e ../foobar.xlsx
-> in current directory
+
+in current directory
+
 > ./HuntJobs.dms Oregon -e foobar.xlsx
 
 Parse data into text file by specifying path name using -t or --text
