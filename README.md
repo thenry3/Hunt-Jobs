@@ -9,7 +9,8 @@ As of 9/3/2019, this script is Unix-based -- only macOS may run this.
 
 ### Installation
 
-1. Go to this [link](https://github.com/thenry3/Hunt-Jobs/releases) or click on the "releases" tab above.
+1. [Click to Download!](https://github.com/thenry3/Hunt-Jobs/releases/download/v1.0/HuntJobs)
+   Or go to this [link](https://github.com/thenry3/Hunt-Jobs/releases) or click on the "releases" tab above and download the file there.
 
 2. Click and download the executable named "HuntJobs"
 
