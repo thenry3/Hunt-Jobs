@@ -40,6 +40,7 @@ Search in a location which has a multi-word name
 The -k or --keywords flag allows a search with keywords
 
 > ./HuntJobs.dms San+Jose Florida -k data scientist
+
 > ./HuntJobs.dms Seattle -k Microsoft software engineer
 
 Search for only internships or only full-time positions using the -i(or --internship) and -f(--fulltime) flag respectively
@@ -69,9 +70,9 @@ Parse data into text file by specifying path name using -t or --text
 
 > ./HuntJobs.dms Colorado -t test.txt
 
-Using everything, we can do search in California, New York, and Dallas for full-time software developer positions, having the output be printed on terminal, and parsed into a csv, excel, and text file.
+Using everything, we can do search in California, New York, and Dallas for full-time designer positions, having the output be printed on terminal, and parsed into a csv, excel, and text file.
 
-> ./HuntJobs.dms California New+York Dallas -f -k Software Developer --verbose -c foobar.csv -e ../foobar.xlsx -t ~/Documents/foobar.txt
+> ./HuntJobs.dms California New+York -f -k designer --verbose -c foobar.csv -e ../foobar.xlsx -t ~/Documents/foobar.txt
 
 Enjoy!
 
