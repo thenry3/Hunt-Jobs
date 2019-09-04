@@ -1,6 +1,10 @@
 # For the lazy unemployed ;)
 
-Well, I realized something. I was too lazy to find my own internships and built my own tool for that. I was also looking for a personal project. So, why not help EVERYONE find a job or internship?! Lowkey this is useless because legit not THAT many people know how to use terminal and I mean there's indeed, but this is like a summary; you can view many job postings faster. I'm currently working on a Graphical User Interface so that it can be used like an app! Great idea, am I right???!!!
+## Introduction
+
+Well, I realized something. I was too lazy to find my own internships and built my own tool for that. I was also looking for a personal project. So, why not help EVERYONE find a job or internship?! Lowkey this is useless because legit not THAT many people know how to use terminal and I mean there's Indeed or Glassdoor, but this is like a summary; you can view many job postings faster. I'm currently working on a Graphical User Interface so that it can be used like an app! Great idea, am I right???!!!
+
+Man, I got way too bored this summer lmao
 
 ## Installation and Usage
 
