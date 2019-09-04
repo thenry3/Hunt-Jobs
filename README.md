@@ -13,12 +13,8 @@ As of 9/3/2019, this script is Unix-based -- only macOS may run this.
 
 ### Installation
 
-1. [Click to Download!](https://github.com/thenry3/Hunt-Jobs/releases/download/v1.0/HuntJobs)
-   Or go to this [link](https://github.com/thenry3/Hunt-Jobs/releases) or click on the "releases" tab above and download the file there.
-
-2. Click and download the executable named `HuntJobs`
-
-3. In terminal, enter the command `chmod +x FILE_PATH_NAME`
+- [macOS Download](https://github.com/thenry3/Hunt-Jobs/releases/download/v1.02/HuntJobs-mac.zip)
+- [Windows Download](https://github.com/thenry3/Hunt-Jobs/releases/download/v1.02/HuntJobs.exe)
 
 ### Usage
 
