@@ -8,7 +8,7 @@ Man, I got way too bored this summer lmao
 
 ## Installation and Usage
 
-**NOTE**
+\*\*\***NOTE**\*\*\*
 As of 9/3/2019, this script is Unix-based -- only macOS may run this.
 
 ### Installation
